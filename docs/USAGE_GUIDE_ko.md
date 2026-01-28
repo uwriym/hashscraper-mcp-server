@@ -314,14 +314,14 @@ export class ExampleApiClient {
 | 이름 | 타입 | 필수 | 설명 |
 |------|------|------|------|
 | url | string | 예 | 스크래핑할 URL |
-| wait_for | string | 아니오 | 페이지 로드 조건: `load`, `networkidle`, `domcontentloaded`. 기본값: `networkidle` |
+| format | string | 아니오 | 출력 형식: `markdown` (기본값) 또는 `text` |
 
 **예시:**
 
 ```json
 {
   "url": "https://example.com/article",
-  "wait_for": "networkidle"
+  "format": "markdown"
 }
 ```
 
@@ -334,14 +334,14 @@ export class ExampleApiClient {
 | 이름 | 타입 | 필수 | 설명 |
 |------|------|------|------|
 | urls | string[] | 예 | 스크래핑할 URL 목록 (최대 10개) |
-| wait_for | string | 아니오 | 페이지 로드 조건: `load`, `networkidle`, `domcontentloaded`. 기본값: `networkidle` |
+| format | string | 아니오 | 출력 형식: `markdown` (기본값) 또는 `text` |
 
 **예시:**
 
 ```json
 {
   "urls": ["https://example.com/page1", "https://example.com/page2"],
-  "wait_for": "networkidle"
+  "format": "markdown"
 }
 ```
 

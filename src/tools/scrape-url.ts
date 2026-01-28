@@ -1,14 +1,14 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { scrapeUrl } from "../utils/api.js";
-import { htmlToMarkdown } from "../utils/markdown.js";
+import { htmlToMarkdown, htmlToText } from "../utils/markdown.js";
 
 const ScrapeUrlSchema = z.object({
   url: z.string().url().describe("The URL of the webpage to scrape"),
-  wait_for: z
-    .enum(["load", "networkidle", "domcontentloaded"])
-    .default("networkidle")
-    .describe("Page load condition to wait for (networkidle recommended for SPA sites)"),
+  format: z
+    .enum(["markdown", "text"])
+    .default("markdown")
+    .describe("Output format: markdown (default) or text"),
 });
 
 export function registerScrapeUrlTool(server: McpServer) {
@@ -17,13 +17,12 @@ export function registerScrapeUrlTool(server: McpServer) {
     "Scrapes a webpage and returns the content in AI-readable Markdown format. Can access blocked sites through browser rendering.",
     ScrapeUrlSchema.shape,
     async (params) => {
-      const { url, wait_for } = ScrapeUrlSchema.parse(params);
+      const { url, format } = ScrapeUrlSchema.parse(params);
 
       try {
         // 1. Request browser rendering via Hashscraper API
         const response = await scrapeUrl({
           url,
-          wait_for,
           javascript: true,
         });
 
@@ -39,8 +38,11 @@ export function registerScrapeUrlTool(server: McpServer) {
           };
         }
 
-        // 2. Convert HTML to Markdown (extract main content)
-        const markdown = htmlToMarkdown(response.data.html, response.data.url);
+        // 2. Convert HTML to desired format (extract main content)
+        const content =
+          format === "text"
+            ? htmlToText(response.data.html, response.data.url)
+            : htmlToMarkdown(response.data.html, response.data.url);
 
         // 3. Return to AI
         const result = [
@@ -48,7 +50,7 @@ export function registerScrapeUrlTool(server: McpServer) {
           "",
           `> Source: ${response.data.url}`,
           "",
-          markdown,
+          content,
         ].join("\n");
 
         return {

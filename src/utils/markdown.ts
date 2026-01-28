@@ -95,3 +95,67 @@ function cleanMarkdown(markdown: string): string {
       .trim()
   );
 }
+
+export function htmlToText(html: string, url?: string): string {
+  try {
+    // Parse with JSDOM
+    const dom = new JSDOM(html, { url });
+    const document = dom.window.document;
+
+    // Extract main content with Readability
+    const reader = new Readability(document.cloneNode(true) as Document);
+    const article = reader.parse();
+
+    if (article?.textContent) {
+      return cleanText(article.textContent);
+    }
+
+    // If Readability fails, extract text from body
+    const body = document.body;
+    if (body) {
+      // Remove unnecessary elements
+      const selectorsToRemove = [
+        "script",
+        "style",
+        "noscript",
+        "iframe",
+        "nav",
+        "header",
+        "footer",
+        "aside",
+        ".sidebar",
+        ".menu",
+        ".navigation",
+        ".advertisement",
+        ".ad",
+        ".ads",
+        "#cookie-banner",
+        ".cookie-notice",
+      ];
+      selectorsToRemove.forEach((selector) => {
+        body.querySelectorAll(selector).forEach((el) => el.remove());
+      });
+
+      return cleanText(body.textContent || "");
+    }
+
+    return "Unable to extract content.";
+  } catch (error) {
+    console.error("Text conversion error:", error);
+    return "An error occurred during content conversion.";
+  }
+}
+
+function cleanText(text: string): string {
+  return (
+    text
+      // Normalize whitespace (spaces and tabs)
+      .replace(/[ \t]+/g, " ")
+      // Replace multiple newlines with double newline
+      .replace(/\n\s*\n/g, "\n\n")
+      // Remove leading whitespace from each line
+      .replace(/^ +/gm, "")
+      // Trim leading/trailing whitespace
+      .trim()
+  );
+}

@@ -29,7 +29,6 @@ client.interceptors.request.use((config) => {
 
 export interface ScrapeUrlOptions {
   url: string;
-  wait_for?: "load" | "networkidle" | "domcontentloaded";
   javascript?: boolean;
   timeout?: number;
 }
@@ -74,7 +73,6 @@ export async function scrapeUrl(options: ScrapeUrlOptions): Promise<ScrapeUrlRes
   const response = await client.post<ScrapeUrlResponse>("/api/scrape", {
     url: options.url,
     options: {
-      wait_for: options.wait_for || "networkidle",
       javascript: options.javascript ?? true,
       timeout: options.timeout || 30000,
     },

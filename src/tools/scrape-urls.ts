@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { scrapeUrl } from "../utils/api.js";
-import { htmlToMarkdown } from "../utils/markdown.js";
+import { htmlToMarkdown, htmlToText } from "../utils/markdown.js";
 
 const ScrapeUrlsSchema = z.object({
   urls: z
@@ -9,10 +9,10 @@ const ScrapeUrlsSchema = z.object({
     .min(1)
     .max(10)
     .describe("URLs to scrape (max 10)"),
-  wait_for: z
-    .enum(["load", "networkidle", "domcontentloaded"])
-    .default("networkidle")
-    .describe("Page load condition to wait for (networkidle recommended for SPA sites)"),
+  format: z
+    .enum(["markdown", "text"])
+    .default("markdown")
+    .describe("Output format: markdown (default) or text"),
 });
 
 export function registerScrapeUrlsTool(server: McpServer) {
@@ -21,7 +21,7 @@ export function registerScrapeUrlsTool(server: McpServer) {
     "Scrapes multiple webpages in parallel and returns the content in AI-readable Markdown format. Can access blocked sites through browser rendering.",
     ScrapeUrlsSchema.shape,
     async (params) => {
-      const { urls, wait_for } = ScrapeUrlsSchema.parse(params);
+      const { urls, format } = ScrapeUrlsSchema.parse(params);
 
       try {
         // Scrape all URLs in parallel
@@ -30,7 +30,6 @@ export function registerScrapeUrlsTool(server: McpServer) {
             try {
               const response = await scrapeUrl({
                 url,
-                wait_for,
                 javascript: true,
               });
 
@@ -42,13 +41,16 @@ export function registerScrapeUrlsTool(server: McpServer) {
                 };
               }
 
-              const markdown = htmlToMarkdown(response.data.html, response.data.url);
+              const content =
+                format === "text"
+                  ? htmlToText(response.data.html, response.data.url)
+                  : htmlToMarkdown(response.data.html, response.data.url);
 
               return {
                 url,
                 success: true,
                 title: response.data.title || "Untitled",
-                content: markdown,
+                content,
               };
             } catch (error) {
               const message = error instanceof Error ? error.message : "Unknown error";

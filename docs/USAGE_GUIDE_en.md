@@ -314,14 +314,14 @@ Scrapes a webpage and returns AI-readable Markdown content.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | url | string | Yes | URL to scrape |
-| wait_for | string | No | Page load condition: `load`, `networkidle`, `domcontentloaded`. Default: `networkidle` |
+| format | string | No | Output format: `markdown` (default) or `text` |
 
 **Example:**
 
 ```json
 {
   "url": "https://example.com/article",
-  "wait_for": "networkidle"
+  "format": "markdown"
 }
 ```
 
@@ -334,14 +334,14 @@ Scrapes multiple webpages in parallel and returns AI-readable Markdown content.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | urls | string[] | Yes | URLs to scrape (max 10) |
-| wait_for | string | No | Page load condition: `load`, `networkidle`, `domcontentloaded`. Default: `networkidle` |
+| format | string | No | Output format: `markdown` (default) or `text` |
 
 **Example:**
 
 ```json
 {
   "urls": ["https://example.com/page1", "https://example.com/page2"],
-  "wait_for": "networkidle"
+  "format": "markdown"
 }
 ```
 
