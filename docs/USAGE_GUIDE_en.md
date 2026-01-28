@@ -21,11 +21,8 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 git clone https://github.com/bamchi/hashscraper-mcp-server.git
 cd hashscraper-mcp-server
 
-# Install dependencies
-npm install
-
-# Build
-npm run build
+# Install dependencies and build
+npm install && npm run build
 ```
 
 ---
@@ -72,7 +69,7 @@ npm run build
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -80,6 +77,9 @@ npm run build
   }
 }
 ```
+
+> **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
+> Example: `/Users/username/hashscraper-mcp-server/dist/index.js`
 
 **Configuration (using npx - after npm publish):**
 
@@ -110,7 +110,7 @@ Create or edit `.cursor/mcp.json` in your project root:
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -118,6 +118,8 @@ Create or edit `.cursor/mcp.json` in your project root:
   }
 }
 ```
+
+> **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
 
 **Using npx (after npm publish):**
 
@@ -304,14 +306,14 @@ Check your API usage and remaining credits.
 
 ## Local Development
 
-For testing with a local Hashscraper backend:
+For testing with a local Hashscraper backend, add `HASHSCRAPER_API_URL` to your configuration:
 
 ```json
 {
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key",
         "HASHSCRAPER_API_URL": "http://localhost:3000"
@@ -340,7 +342,7 @@ Your account has run out of credits. Please recharge at [hashscraper.com](https:
 ### MCP Server not connecting
 
 1. Ensure Node.js 20+ is installed
-2. Try running `node /path/to/hashscraper-mcp-server/dist/index.js` manually to check for errors
+2. Try running `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` manually to check for errors
 3. Fully quit Claude Desktop (Cmd+Q on macOS, Alt+F4 on Windows) and restart
 4. Check Settings > Developer to verify the server is listed
 

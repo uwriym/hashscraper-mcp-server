@@ -21,11 +21,8 @@
 git clone https://github.com/bamchi/hashscraper-mcp-server.git
 cd hashscraper-mcp-server
 
-# 의존성 설치
-npm install
-
-# 빌드
-npm run build
+# 의존성 설치 및 빌드
+npm install && npm run build
 ```
 
 ---
@@ -72,7 +69,7 @@ npm run build
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -80,6 +77,9 @@ npm run build
   }
 }
 ```
+
+> **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
+> 예시: `/Users/username/hashscraper-mcp-server/dist/index.js`
 
 **설정 내용 (npx 사용 - npm publish 이후):**
 
@@ -110,7 +110,7 @@ npm run build
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -118,6 +118,8 @@ npm run build
   }
 }
 ```
+
+> **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
 
 **npx 사용 (npm publish 이후):**
 
@@ -304,14 +306,14 @@ API 사용량과 남은 크레딧을 확인합니다.
 
 ## 로컬 개발
 
-로컬 Hashscraper 백엔드로 테스트하려면:
+로컬 Hashscraper 백엔드로 테스트하려면 `HASHSCRAPER_API_URL`을 설정에 추가하세요:
 
 ```json
 {
   "mcpServers": {
     "hashscraper": {
       "command": "node",
-      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key",
         "HASHSCRAPER_API_URL": "http://localhost:3000"
@@ -340,7 +342,7 @@ Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확�
 ### MCP 서버 연결 안됨
 
 1. Node.js 20+ 설치 확인
-2. `node /path/to/hashscraper-mcp-server/dist/index.js` 를 수동으로 실행하여 오류 확인
+2. `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` 를 수동으로 실행하여 오류 확인
 3. Claude Desktop 완전히 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 재시작
 4. 설정 > Developer에서 서버가 목록에 있는지 확인
 
