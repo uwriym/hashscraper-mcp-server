@@ -7,7 +7,7 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 ## Prerequisites
 
 - [Hashscraper](https://www.hashscraper.com) account
-- Claude Desktop or Cursor installed
+- Claude Desktop, Cline, or Cursor installed
 - Node.js 20+
 
 > **Note**: The npm package is not yet published. Please install from source for now. See [Installation from Source](#installation-from-source) below.
@@ -31,9 +31,8 @@ npm install && npm run build
 
 1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
 2. Sign up or log in
-3. Navigate to **Dashboard** → **API Settings**
-4. Generate a new API key
-5. Copy your API key
+3. Navigate to [My Info](https://www.hashscraper.com/users/change_userinfo)
+4. Find and copy your API key
 
 ---
 
@@ -81,6 +80,7 @@ npm install && npm run build
 > **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
 > Example: `/Users/username/hashscraper-mcp-server/dist/index.js`
 
+<!-- TODO: Uncomment after npm publish
 **Configuration (using npx - after npm publish):**
 
 ```json
@@ -96,8 +96,34 @@ npm install && npm run build
   }
 }
 ```
+-->
 
 > **Note:** If you already have other settings in the file, just add the `mcpServers` section alongside them.
+
+### Cline
+
+**Config file location:**
+
+- **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
+
+**Configuration (using local build):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+> **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
 
 ### Cursor
 
@@ -121,6 +147,7 @@ Create or edit `.cursor/mcp.json` in your project root:
 
 > **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
 
+<!-- TODO: Uncomment after npm publish
 **Using npx (after npm publish):**
 
 ```json
@@ -136,15 +163,17 @@ Create or edit `.cursor/mcp.json` in your project root:
   }
 }
 ```
+-->
 
 ---
 
 ## Step 3: Restart Your AI Client
 
 - **Claude Desktop**: Fully quit (Cmd+Q on macOS, Alt+F4 on Windows) and reopen the app
+- **Cline**: Restart VS Code
 - **Cursor**: Restart the editor
 
-You should see the MCP server connection indicator in the bottom-right corner of the chat input box.
+You should see the MCP server connection indicator.
 
 ---
 
@@ -292,6 +321,26 @@ Scrapes a webpage and returns AI-readable Markdown content.
 ```json
 {
   "url": "https://example.com/article",
+  "wait_for": "networkidle"
+}
+```
+
+### scrape_urls
+
+Scrapes multiple webpages in parallel and returns AI-readable Markdown content.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| urls | string[] | Yes | URLs to scrape (max 10) |
+| wait_for | string | No | Page load condition: `load`, `networkidle`, `domcontentloaded`. Default: `networkidle` |
+
+**Example:**
+
+```json
+{
+  "urls": ["https://example.com/page1", "https://example.com/page2"],
   "wait_for": "networkidle"
 }
 ```

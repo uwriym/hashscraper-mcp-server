@@ -7,7 +7,7 @@
 ## 사전 요구사항
 
 - [Hashscraper](https://www.hashscraper.com) 계정
-- Claude Desktop 또는 Cursor 설치
+- Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
 > **참고**: npm 패키지는 아직 publish되지 않았습니다. 현재는 소스에서 직접 설치해야 합니다. 아래 [소스에서 설치](#소스에서-설치) 섹션을 참고하세요.
@@ -31,9 +31,8 @@ npm install && npm run build
 
 1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
 2. 회원가입 또는 로그인
-3. **대시보드** → **API 설정** 이동
-4. 새 API 키 생성
-5. API 키 복사
+3. [내 정보](https://www.hashscraper.com/users/change_userinfo) 페이지로 이동
+4. API 키 확인 및 복사
 
 ---
 
@@ -81,6 +80,7 @@ npm install && npm run build
 > **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
 > 예시: `/Users/username/hashscraper-mcp-server/dist/index.js`
 
+<!-- TODO: npm publish 이후 주석 해제
 **설정 내용 (npx 사용 - npm publish 이후):**
 
 ```json
@@ -96,8 +96,34 @@ npm install && npm run build
   }
 }
 ```
+-->
 
 > **참고:** 파일에 다른 설정이 이미 있다면, `mcpServers` 섹션만 추가하세요.
+
+### Cline
+
+**설정 파일 위치:**
+
+- **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
+
+**설정 내용 (로컬 빌드 사용):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+> **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
 
 ### Cursor
 
@@ -121,6 +147,7 @@ npm install && npm run build
 
 > **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
 
+<!-- TODO: npm publish 이후 주석 해제
 **npx 사용 (npm publish 이후):**
 
 ```json
@@ -136,15 +163,17 @@ npm install && npm run build
   }
 }
 ```
+-->
 
 ---
 
 ## 3단계: AI 클라이언트 재시작
 
 - **Claude Desktop**: 완전히 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 다시 열기
+- **Cline**: VS Code 재시작
 - **Cursor**: 에디터 재시작
 
-채팅 입력창 우측 하단에 MCP 서버 연결 표시가 나타납니다.
+MCP 서버 연결 표시가 나타납니다.
 
 ---
 
@@ -292,6 +321,26 @@ export class ExampleApiClient {
 ```json
 {
   "url": "https://example.com/article",
+  "wait_for": "networkidle"
+}
+```
+
+### scrape_urls
+
+여러 웹페이지를 동시에 스크래핑하고 AI가 읽기 좋은 마크다운 콘텐츠를 반환합니다.
+
+**파라미터:**
+
+| 이름 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| urls | string[] | 예 | 스크래핑할 URL 목록 (최대 10개) |
+| wait_for | string | 아니오 | 페이지 로드 조건: `load`, `networkidle`, `domcontentloaded`. 기본값: `networkidle` |
+
+**예시:**
+
+```json
+{
+  "urls": ["https://example.com/page1", "https://example.com/page2"],
   "wait_for": "networkidle"
 }
 ```
