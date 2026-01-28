@@ -8,7 +8,25 @@
 
 - [Hashscraper](https://www.hashscraper.com) 계정
 - Claude Desktop 또는 Cursor 설치
-- Node.js 20+ (npx 사용을 위해)
+- Node.js 20+
+
+> **참고**: npm 패키지는 아직 publish되지 않았습니다. 현재는 소스에서 직접 설치해야 합니다. 아래 [소스에서 설치](#소스에서-설치) 섹션을 참고하세요.
+
+---
+
+## 소스에서 설치
+
+```bash
+# 저장소 클론
+git clone https://github.com/bamchi/hashscraper-mcp-server.git
+cd hashscraper-mcp-server
+
+# 의존성 설치
+npm install
+
+# 빌드
+npm run build
+```
 
 ---
 
@@ -47,7 +65,23 @@
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-**설정 내용:**
+**설정 내용 (로컬 빌드 사용):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 내용 (npx 사용 - npm publish 이후):**
 
 ```json
 {
@@ -56,7 +90,7 @@
       "command": "npx",
       "args": ["-y", "@hashscraper/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "hs_api_xxxxxxxxxxxxxx"
+        "HASHSCRAPER_API_KEY": "your-api-key"
       }
     }
   }
@@ -69,6 +103,24 @@
 
 프로젝트 루트에 `.cursor/mcp.json` 파일을 생성하거나 수정하세요:
 
+**로컬 빌드 사용:**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**npx 사용 (npm publish 이후):**
+
 ```json
 {
   "mcpServers": {
@@ -76,7 +128,7 @@
       "command": "npx",
       "args": ["-y", "@hashscraper/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "hs_api_xxxxxxxxxxxxxx"
+        "HASHSCRAPER_API_KEY": "your-api-key"
       }
     }
   }
@@ -288,8 +340,8 @@ Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확�
 ### MCP 서버 연결 안됨
 
 1. Node.js 20+ 설치 확인
-2. `npx @hashscraper/mcp-server` 를 수동으로 실행하여 오류 확인
-3. Claude Desktop 완전히 종료 (Cmd+Q) 후 재시작
+2. `node /path/to/hashscraper-mcp-server/dist/index.js` 를 수동으로 실행하여 오류 확인
+3. Claude Desktop 완전히 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 재시작
 4. 설정 > Developer에서 서버가 목록에 있는지 확인
 
 ### Developer 탭이 안 보임

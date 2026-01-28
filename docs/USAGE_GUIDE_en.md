@@ -8,7 +8,25 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 
 - [Hashscraper](https://www.hashscraper.com) account
 - Claude Desktop or Cursor installed
-- Node.js 20+ (for npx)
+- Node.js 20+
+
+> **Note**: The npm package is not yet published. Please install from source for now. See [Installation from Source](#installation-from-source) below.
+
+---
+
+## Installation from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/bamchi/hashscraper-mcp-server.git
+cd hashscraper-mcp-server
+
+# Install dependencies
+npm install
+
+# Build
+npm run build
+```
 
 ---
 
@@ -47,7 +65,23 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-**Configuration:**
+**Configuration (using local build):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (using npx - after npm publish):**
 
 ```json
 {
@@ -56,7 +90,7 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
       "command": "npx",
       "args": ["-y", "@hashscraper/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "hs_api_xxxxxxxxxxxxxx"
+        "HASHSCRAPER_API_KEY": "your-api-key"
       }
     }
   }
@@ -69,6 +103,24 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 
 Create or edit `.cursor/mcp.json` in your project root:
 
+**Using local build:**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Using npx (after npm publish):**
+
 ```json
 {
   "mcpServers": {
@@ -76,7 +128,7 @@ Create or edit `.cursor/mcp.json` in your project root:
       "command": "npx",
       "args": ["-y", "@hashscraper/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "hs_api_xxxxxxxxxxxxxx"
+        "HASHSCRAPER_API_KEY": "your-api-key"
       }
     }
   }
@@ -288,8 +340,8 @@ Your account has run out of credits. Please recharge at [hashscraper.com](https:
 ### MCP Server not connecting
 
 1. Ensure Node.js 20+ is installed
-2. Try running `npx @hashscraper/mcp-server` manually to check for errors
-3. Fully quit Claude Desktop (Cmd+Q) and restart
+2. Try running `node /path/to/hashscraper-mcp-server/dist/index.js` manually to check for errors
+3. Fully quit Claude Desktop (Cmd+Q on macOS, Alt+F4 on Windows) and restart
 4. Check Settings > Developer to verify the server is listed
 
 ### Developer tab not visible

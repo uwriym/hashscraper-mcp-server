@@ -13,6 +13,27 @@ MCP server for AI agents that provides web scraping capabilities. Input a URL an
 
 ## Installation
 
+### From Source (Current)
+
+> **Note**: npm package is not yet published. Please install from source for now.
+
+```bash
+# Clone the repository
+git clone https://github.com/bamchi/hashscraper-mcp-server.git
+cd hashscraper-mcp-server
+
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Run
+npm start
+```
+
+### From npm (Coming Soon)
+
 ```bash
 npm install -g @hashscraper/mcp-server
 ```
@@ -35,6 +56,24 @@ export HASHSCRAPER_API_KEY=your-api-key
 
 `claude_desktop_config.json`:
 
+**Using local build:**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Using npx (after npm publish):**
+
 ```json
 {
   "mcpServers": {
@@ -52,6 +91,24 @@ export HASHSCRAPER_API_KEY=your-api-key
 ### Cursor
 
 `.cursor/mcp.json`:
+
+**Using local build:**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Using npx (after npm publish):**
 
 ```json
 {
