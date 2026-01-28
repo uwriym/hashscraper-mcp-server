@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { registerScrapeUrlTool } from "./tools/scrape-url.js";
+import { registerScrapeUrlsTool } from "./tools/scrape-urls.js";
 import { registerGetUsageTool } from "./tools/get-usage.js";
 
 export function createServer() {
@@ -11,6 +12,7 @@ export function createServer() {
 
   // Register tools
   registerScrapeUrlTool(server);
+  registerScrapeUrlsTool(server);
   registerGetUsageTool(server);
 
   return {
