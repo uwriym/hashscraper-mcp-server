@@ -235,6 +235,72 @@ MCP 서버 연결 표시가 나타나면 성공입니다.
 ]
 ```
 
+### `scraper_server_status`
+
+모든 ScraperServer 인스턴스의 상태를 조회합니다. 서버 건강 상태, 서킷브레이커 상태, 실패 횟수, 시간 정보를 표시합니다.
+
+**파라미터:** 없음
+
+**예시:**
+
+```json
+{}
+```
+
+**출력:**
+
+```markdown
+## ScraperServer Status
+
+Total: 3 | Available: 2
+
+| Name | OS | Status | Failures | Last Success | Last Failure |
+|------|----|--------|----------|--------------|--------------|
+| pluto | linux | OK | 0 | 01/30 14:23:05 | - |
+| mars | mac | FAIL | 2 | 01/29 10:00:00 | 01/30 13:55:12 |
+| venus | linux | OPEN | 3 | 01/28 09:00:00 | 01/30 12:00:00 |
+
+### Issues
+- **mars**: Connection refused - connect(2)
+- **venus**: 서킷브레이커 해제 시각: 01/30 12:30:00
+- **venus**: Net::ReadTimeout
+```
+
+**상태 값:**
+
+| 상태 | 설명 |
+|------|------|
+| `OK` | 서버 정상 |
+| `FAIL` | 서버 비정상 |
+| `OPEN` | 서킷브레이커 발동 (30분간 격리) |
+| `N/A` | 아직 체크되지 않음 |
+
+### `get_usage`
+
+API 사용량 및 남은 크레딧을 확인합니다.
+
+**파라미터:** 없음
+
+**예시:**
+
+```json
+{}
+```
+
+**출력:**
+
+```markdown
+## API Usage
+
+| Item | Value |
+|------|-------|
+| Plan | Pro |
+| Total Credits | 10,000 |
+| Used Credits | 2,500 |
+| Remaining Credits | 7,500 |
+| Reset Date | 2024-02-01 |
+```
+
 ---
 
 ## 사용 예시

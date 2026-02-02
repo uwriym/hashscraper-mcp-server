@@ -235,6 +235,72 @@ Scrapes multiple webpages in parallel and returns AI-readable content.
 ]
 ```
 
+### `scraper_server_status`
+
+Check the status of all ScraperServer instances. Shows server health, circuit breaker state, failure counts, and timing info.
+
+**Parameters:** None
+
+**Example:**
+
+```json
+{}
+```
+
+**Output:**
+
+```markdown
+## ScraperServer Status
+
+Total: 3 | Available: 2
+
+| Name | OS | Status | Failures | Last Success | Last Failure |
+|------|----|--------|----------|--------------|--------------|
+| pluto | linux | OK | 0 | 01/30 14:23:05 | - |
+| mars | mac | FAIL | 2 | 01/29 10:00:00 | 01/30 13:55:12 |
+| venus | linux | OPEN | 3 | 01/28 09:00:00 | 01/30 12:00:00 |
+
+### Issues
+- **mars**: Connection refused - connect(2)
+- **venus**: Circuit breaker open until 01/30 12:30:00
+- **venus**: Net::ReadTimeout
+```
+
+**Status values:**
+
+| Status | Description |
+|--------|-------------|
+| `OK` | Server is healthy |
+| `FAIL` | Server is unhealthy |
+| `OPEN` | Circuit breaker open (isolated for 30 min) |
+| `N/A` | Not yet checked |
+
+### `get_usage`
+
+Check your API usage and remaining credits.
+
+**Parameters:** None
+
+**Example:**
+
+```json
+{}
+```
+
+**Output:**
+
+```markdown
+## API Usage
+
+| Item | Value |
+|------|-------|
+| Plan | Pro |
+| Total Credits | 10,000 |
+| Used Credits | 2,500 |
+| Remaining Credits | 7,500 |
+| Reset Date | 2024-02-01 |
+```
+
 ---
 
 ## Usage Examples
