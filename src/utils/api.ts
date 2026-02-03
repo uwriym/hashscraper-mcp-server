@@ -3,6 +3,11 @@ import axios from "axios";
 const API_URL = process.env.HASHSCRAPER_API_URL || "http://api.hashscraper.com";
 const API_KEY = process.env.HASHSCRAPER_API_KEY;
 
+// 디버그용: 현재 사용 중인 API URL 반환
+export function getApiUrl(): string {
+  return API_URL;
+}
+
 function getApiKey(): string {
   if (!API_KEY) {
     throw new Error("HASHSCRAPER_API_KEY environment variable is not set.");

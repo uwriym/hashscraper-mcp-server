@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { scrapeUrl } from "../utils/api.js";
+import { scrapeUrl, getApiUrl } from "../utils/api.js";
 
 const ScrapeUrlSchema = z.object({
   url: z.string().url().describe("The URL of the webpage to scrape"),
@@ -56,7 +56,20 @@ export function registerScrapeUrlTool(server: McpServer) {
           ],
         };
       } catch (error) {
-        const message = error instanceof Error ? error.message : "Unknown error";
+        let message = "Unknown error";
+        const apiUrl = getApiUrl();
+        if (error instanceof Error) {
+          message = error.message;
+          // axios 에러인 경우 더 자세한 정보 추출
+          const axiosError = error as any;
+          if (axiosError.response) {
+            // 서버가 응답했지만 에러 상태
+            message = `HTTP ${axiosError.response.status}: ${JSON.stringify(axiosError.response.data)}`;
+          } else if (axiosError.request) {
+            // 요청은 보냈지만 응답 없음
+            message = `No response received: ${axiosError.code || 'Unknown'} (API URL: ${apiUrl})`;
+          }
+        }
         return {
           isError: true,
           content: [
