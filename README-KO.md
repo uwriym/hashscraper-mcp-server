@@ -1,5 +1,7 @@
 # 🔗 Hashscraper MCP Server
 
+[English](README.md)
+
 > URL을 깔끔한 Markdown/Text로 변환하는 MCP 서버
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -31,11 +33,31 @@ AI 에이전트가 웹 페이지를 읽을 수 있게 해주는 [MCP (Model Cont
 - Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
-> 참고: npm 패키지는 아직 배포되지 않았습니다. 현재는 소스에서 설치해주세요. 배포 후에는 `npx hashscraper-mcp-server`로 설치 가능합니다.
-
 ---
 
-## 소스에서 설치
+## 설치
+
+### 방법 A: npx (권장)
+
+별도 설치 없이 MCP 클라이언트 설정에서 `npx`를 사용하면 됩니다.
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+> 이 설정을 어디에 넣어야 하는지는 [2단계](#2단계-mcp-서버-설정)를 참고하세요.
+
+### 방법 B: 소스에서 설치
 
 ```bash
 # 저장소 클론
@@ -75,7 +97,23 @@ npm install && npm run build
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-**설정:**
+**설정 (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 (소스 설치 시):**
 
 ```json
 {
@@ -99,6 +137,24 @@ npm install && npm run build
 - macOS: `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
 - Windows: `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
+**설정 (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 (소스 설치 시):**
+
 ```json
 {
   "mcpServers": {
@@ -116,6 +172,24 @@ npm install && npm run build
 ### Cursor
 
 프로젝트 루트에 `.cursor/mcp.json` 파일 생성 또는 수정:
+
+**설정 (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 (소스 설치 시):**
 
 ```json
 {

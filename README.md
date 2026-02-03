@@ -1,5 +1,7 @@
 # 🔗 Hashscraper MCP Server
 
+[한국어](README-KO.md)
+
 > MCP server that converts URLs to clean Markdown/Text for LLM agents
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -31,11 +33,31 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that 
 - Claude Desktop, Cline, or Cursor installed
 - Node.js 20+
 
-> Note: The npm package is not yet published. Please install from source for now. Once published, you can install via `npx hashscraper-mcp-server`.
-
 ---
 
-## Installation from Source
+## Installation
+
+### Option A: npx (Recommended)
+
+No installation needed. Just configure your MCP client to use `npx`.
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+> See [Step 2](#step-2-configure-mcp-server) for where to put this configuration.
+
+### Option B: Install from Source
 
 ```bash
 # Clone the repository
@@ -75,7 +97,23 @@ npm install && npm run build
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-**Configuration:**
+**Configuration (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (from source):**
 
 ```json
 {
@@ -99,6 +137,24 @@ Config file location:
 - macOS: `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
 - Windows: `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
+**Configuration (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (from source):**
+
 ```json
 {
   "mcpServers": {
@@ -116,6 +172,24 @@ Config file location:
 ### Cursor
 
 Create or edit `.cursor/mcp.json` in your project root:
+
+**Configuration (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (from source):**
 
 ```json
 {
