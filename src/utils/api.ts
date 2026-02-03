@@ -66,6 +66,28 @@ export interface GetUsageResponse {
   error?: string;
 }
 
+export interface ScraperServerInfo {
+  name: string;
+  os: string;
+  healthy: boolean | null;
+  failure_count: number;
+  circuit_open: boolean;
+  circuit_open_until: string | null;
+  last_success: string | null;
+  last_failure: string | null;
+  last_error: string | null;
+}
+
+export interface GetScraperServerStatusResponse {
+  success: boolean;
+  data: {
+    total: number;
+    available: number;
+    servers: ScraperServerInfo[];
+  };
+  error?: string;
+}
+
 // ============================================
 // API Functions
 // ============================================
@@ -85,5 +107,10 @@ export async function scrapeUrl(options: ScrapeUrlOptions): Promise<ScrapeUrlRes
 
 export async function getUsage(): Promise<GetUsageResponse> {
   const response = await client.get<GetUsageResponse>("/api/usage");
+  return response.data;
+}
+
+export async function getScraperServerStatus(): Promise<GetScraperServerStatusResponse> {
+  const response = await client.get<GetScraperServerStatusResponse>("/api/scraper_servers/status");
   return response.data;
 }

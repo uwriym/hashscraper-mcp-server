@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { registerScrapeUrlTool } from "./tools/scrape-url.js";
 import { registerScrapeUrlsTool } from "./tools/scrape-urls.js";
 import { registerGetUsageTool } from "./tools/get-usage.js";
+import { registerScraperServerStatusTool } from "./tools/scraper-server-status.js";
 
 export function createServer() {
   const server = new McpServer({
@@ -14,6 +15,7 @@ export function createServer() {
   registerScrapeUrlTool(server);
   registerScrapeUrlsTool(server);
   registerGetUsageTool(server);
+  registerScraperServerStatusTool(server);
 
   return {
     server,
