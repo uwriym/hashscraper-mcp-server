@@ -475,7 +475,7 @@ export class ExampleApiClient {
 
 ## 왜 Hashscraper인가?
 
-7년 이상의 웹 크롤링 경험을 가진 [Hashscraper](https://hashscraper.com) 팀이 만들었습니다:
+7년 이상의 웹 크롤링 경험을 가진 [Hashscraper](https://www.hashscraper.com) 팀이 만들었습니다:
 
 - ✅ 1,900개 이상의 프로덕션 크롤러
 - ✅ JavaScript 렌더링 지원
@@ -516,4 +516,4 @@ Claude Desktop을 최신 버전으로 업데이트: Claude 메뉴 → "Check for
 
 ## 라이선스
 
-MIT © [Hashscraper](https://hashscraper.com)
+MIT © [Hashscraper](https://www.hashscraper.com)

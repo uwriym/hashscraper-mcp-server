@@ -496,7 +496,7 @@ export class ExampleApiClient {
 
 ## Why Hashscraper?
 
-Built by the team behind [Hashscraper](https://hashscraper.com), with 7+ years of web scraping experience:
+Built by the team behind [Hashscraper](https://www.hashscraper.com), with 7+ years of web scraping experience:
 
 - ✅ 1,900+ production crawlers
 - ✅ JavaScript rendering support
@@ -537,4 +537,4 @@ Update Claude Desktop to the latest version: Claude menu → "Check for Updates.
 
 ## License
 
-MIT © [Hashscraper](https://hashscraper.com)
+MIT © [Hashscraper](https://www.hashscraper.com)
