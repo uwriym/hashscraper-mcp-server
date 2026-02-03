@@ -205,11 +205,32 @@ Create or edit `.cursor/mcp.json` in your project root:
 }
 ```
 
+### Claude Code
+
+Edit `~/.claude.json` or project `.mcp.json`:
+
+**Configuration (npx):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
 ---
 
 ## Step 3: Restart Your AI Client
 
 - **Claude Desktop**: Fully quit (Cmd+Q on macOS, Alt+F4 on Windows) and reopen
+- **Claude Code**: Restart the session
 - **Cline**: Restart VS Code
 - **Cursor**: Restart the editor
 
