@@ -1,7 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { scrapeUrl } from "../utils/api.js";
-import { htmlToMarkdown, htmlToText } from "../utils/markdown.js";
 
 const ScrapeUrlsSchema = z.object({
   urls: z
@@ -30,6 +29,7 @@ export function registerScrapeUrlsTool(server: McpServer) {
             try {
               const response = await scrapeUrl({
                 url,
+                format,
                 javascript: true,
               });
 
@@ -41,16 +41,11 @@ export function registerScrapeUrlsTool(server: McpServer) {
                 };
               }
 
-              const content =
-                format === "text"
-                  ? htmlToText(response.data.html, response.data.url)
-                  : htmlToMarkdown(response.data.html, response.data.url);
-
               return {
                 url,
                 success: true,
                 title: response.data.title || "Untitled",
-                content,
+                content: response.data.content,
               };
             } catch (error) {
               const message = error instanceof Error ? error.message : "Unknown error";

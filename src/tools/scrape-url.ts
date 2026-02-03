@@ -1,7 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { scrapeUrl } from "../utils/api.js";
-import { htmlToMarkdown, htmlToText } from "../utils/markdown.js";
 
 const ScrapeUrlSchema = z.object({
   url: z.string().url().describe("The URL of the webpage to scrape"),
@@ -23,6 +22,7 @@ export function registerScrapeUrlTool(server: McpServer) {
         // 1. Request browser rendering via Hashscraper API
         const response = await scrapeUrl({
           url,
+          format,
           javascript: true,
         });
 
@@ -38,19 +38,13 @@ export function registerScrapeUrlTool(server: McpServer) {
           };
         }
 
-        // 2. Convert HTML to desired format (extract main content)
-        const content =
-          format === "text"
-            ? htmlToText(response.data.html, response.data.url)
-            : htmlToMarkdown(response.data.html, response.data.url);
-
-        // 3. Return to AI
+        // 2. Return to AI
         const result = [
           `# ${response.data.title || "Untitled"}`,
           "",
           `> Source: ${response.data.url}`,
           "",
-          content,
+          response.data.content,
         ].join("\n");
 
         return {

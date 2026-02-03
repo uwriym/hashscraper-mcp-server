@@ -29,6 +29,7 @@ client.interceptors.request.use((config) => {
 
 export interface ScrapeUrlOptions {
   url: string;
+  format?: "markdown" | "text";
   javascript?: boolean;
   timeout?: number;
 }
@@ -41,7 +42,7 @@ export interface UsageInfo {
 export interface ScrapeUrlResponse {
   success: boolean;
   data: {
-    html: string;
+    content: string;
     title: string;
     url: string;
     metadata?: {
@@ -72,6 +73,7 @@ export interface GetUsageResponse {
 export async function scrapeUrl(options: ScrapeUrlOptions): Promise<ScrapeUrlResponse> {
   const response = await client.post<ScrapeUrlResponse>("/api/scrape", {
     url: options.url,
+    format: options.format || "markdown",
     options: {
       javascript: options.javascript ?? true,
       timeout: options.timeout || 30000,

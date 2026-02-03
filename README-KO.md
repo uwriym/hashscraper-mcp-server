@@ -319,17 +319,11 @@ export class ExampleApiClient {
          ▼
 ┌─────────────────┐     ┌─────────────────┐
 │   MCP Server    │────►│ Hashscraper API │
-│  (scrape_url)   │     │                 │
+│  (scrape_url)   │     │ (format 파라미터)│
 └────────┬────────┘     └────────┬────────┘
          │                       │
          │◄──────────────────────┘
-         │      HTML 응답
-         ▼
-┌─────────────────┐
-│ Markdown / Text │
-│     변환        │
-└────────┬────────┘
-         │
+         │  Markdown/Text 응답
          ▼
 ┌─────────────────┐
 │    AI 응답      │
