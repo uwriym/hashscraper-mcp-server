@@ -5,3 +5,6 @@ dist/
 .DS_Store
 .idea/
 /test/results/
+Dockerfile
+config/deploy.yml
+pem/
