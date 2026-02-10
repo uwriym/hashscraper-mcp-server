@@ -1,10 +1,21 @@
 #!/usr/bin/env node
 
-import { createServer } from "./server.js";
+import { startStdio } from "./transports/stdio.js";
+import { startHttp } from "./transports/streamable-http.js";
 
 async function main() {
-  const server = createServer();
-  await server.start();
+  const mode = process.env.MCP_TRANSPORT || process.argv[2] || "stdio";
+  const port = parseInt(process.env.MCP_PORT || "3100", 10);
+
+  switch (mode) {
+    case "http":
+      await startHttp(port);
+      break;
+    case "stdio":
+    default:
+      await startStdio();
+      break;
+  }
 }
 
 main().catch((error) => {
